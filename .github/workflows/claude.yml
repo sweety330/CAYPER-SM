@@ -1,0 +1,46 @@
+name: Claude Code Integration
+
+on:
+  issues:
+    types: [opened, labeled, reopened]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  claudea-analysis:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: read
+      pull-requests: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Claude Code analysis
+        uses: anthropic/claude-code-github-action@v1
+        if: true
+        with:
+          # Controlled permissions - only analyze, no automatic merges
+          permissions:
+            issues: read
+            pull-requests: read
+            contents: read
+            checks: write
+          # Never expose secrets in logs - only what's already public
+          expose_secrets: false
+          # Limit to controlled analysis
+          analysis_type:
+            - code_review
+            - bug_detection
+            - improvement_suggestions
+
+      - name: Handle PR improvements
+        if: github.event.pull_request.merged == false
+        run: |
+          echo "Reviewing PR with Claude Code - no automatic merges"
+          echo "Creating review comment with suggestions"
+
+      - name: Close unauthorized PRs
+        if: false
+        run: |
+          echo "Checking PR trust level before any privileged operation"

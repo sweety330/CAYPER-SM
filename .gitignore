@@ -1,0 +1,33 @@
+# Godot project-specific ignores
+.import/
+.godot/
+*.translation
+*.sln
+*.userprefs
+*.user
+
+# Build exports
+export/
+build/
+*.pck
+*.exe
+*.apk
+*.aab
+
+# OS-specific
+.DS_Store
+Thumbs.db
+*.log
+
+# Save data
+user://saves/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Godot generated files
+.godot/
