@@ -174,7 +174,7 @@ func _build_cars() -> void:
 	for i in range(3):
 		var car := Node3D.new()
 		car.name = "TrafficCar_%d" % i
-		var body_color := [Color("a84237"),Color("d2c7aa"),Color("385d75")][i]
+		var body_color: Color = [Color("a84237"),Color("d2c7aa"),Color("385d75")][i]
 		var body := _mesh_box(Vector3(2.4,0.85,4.0), body_color)
 		body.position.y = 0.75
 		car.add_child(body)
@@ -562,7 +562,7 @@ func _update_npcs(delta: float) -> void:
 	for i in range(npc_nodes.size()):
 		var npc := npc_nodes[i]
 		var home: Vector3 = npc.get_meta("home_position",npc.position)
-		var phase := npc.get_meta("wander_phase",float(i))
+		var phase: float = float(npc.get_meta("wander_phase", float(i)))
 		npc.position.x = home.x + sin(npc_clock*0.32+float(phase))*0.65
 		npc.position.z = home.z + cos(npc_clock*0.24+float(phase))*0.45
 		npc.rotation.y = sin(npc_clock*0.2+float(phase))*0.18
